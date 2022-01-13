@@ -1,0 +1,41 @@
+@Metadata.layer: #CORE
+@Search.searchable: true
+@UI: {
+  headerInfo: { typeName: 'Public Holiday',
+                typeNamePlural: 'Public Holidays',
+                title: { type: #STANDARD, label: 'Public Holiday', value: 'Holiday' } },
+  presentationVariant: [{ sortOrder: [{ by: 'Holiday', direction:  #ASC }] }] }
+annotate view ZCAL_C_MCAL_JHB with
+{
+  @UI.facet: [
+    {
+      id: 'PublicHoliday',
+      purpose: #STANDARD,
+      label: 'Public Holiday',
+      type: #IDENTIFICATION_REFERENCE,
+      position: 1
+    },
+    {
+      id: 'Description',
+      label: 'Description',
+      type: #LINEITEM_REFERENCE,
+      position: 2,
+      targetElement: '_HolidayTxt'
+     }
+    ]
+
+  @UI: {  identification: [ { position: 1 } ],
+          lineItem:       [ { position: 1 } ] }
+  @Search.defaultSearchElement: true
+  Holiday;
+  @UI: {  identification: [ { position: 3 } ],
+          lineItem:       [ { position: 3 } ] }
+  HolidayMonth;
+  @UI: {  identification: [ { position: 4 } ],
+          lineItem:       [ { position: 4 } ] }
+  HolidayDay;
+  @UI: {  identification: [ { position: 2, hidden: true } ],
+          lineItem:       [ { position: 2 } ] }
+  HolidayDescription;
+
+}

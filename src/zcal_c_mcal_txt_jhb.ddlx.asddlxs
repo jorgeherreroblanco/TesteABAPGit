@@ -1,0 +1,27 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: { typeName: 'Description',
+                typeNamePlural: 'Descriptions',
+                title: { type: #STANDARD, value: 'Language' } } ,
+  presentationVariant: [{ sortOrder: [{ by: 'Language', direction:  #ASC }] }] }
+annotate view ZCAL_C_MCAL_TXT_JHB with
+{
+  @UI.facet: [
+    {
+      id: 'HolidayText',
+      purpose: #STANDARD,
+      type: #IDENTIFICATION_REFERENCE,
+      label: 'Description',
+      position: 1
+    }
+  ]
+
+  @UI: { identification: [ { position: 1 } ],
+         lineItem:   [ { position: 1 } ] }
+  Language;
+  @UI.hidden: true
+  Holiday;
+  @UI: { identification: [ { position: 2 } ],
+         lineItem:   [ { position: 2, label: 'Description' } ] }
+  HolidayDescription;
+}

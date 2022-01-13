@@ -1,0 +1,18 @@
+@Metadata.layer: #CORE
+
+@UI: { headerInfo: { typeName: 'Holiday' } }
+annotate view ZCAL_C_MCAL_ALL_JHB with
+{
+  @UI.facet: [
+  {
+  purpose:  #STANDARD,
+  type:     #LINEITEM_REFERENCE,
+  label:    'Holidays',
+  position: 2,
+  targetElement: '_Holiday'
+  }
+  ]
+
+  @UI.lineItem: [{ position: 1 }]
+  HolidayAllID;
+}

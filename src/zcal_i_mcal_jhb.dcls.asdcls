@@ -1,0 +1,10 @@
+@EndUserText.label: 'Access Control for ZCAL_I_MCAL_JHB'
+@MappingRole: true
+define role ZCAL_I_MCAL_JHB {
+  grant
+    select
+      on
+        ZCAL_I_MCAL_JHB
+          where
+            ( ) = aspect pfcg_auth( S_TABU_NAM, TABLE = 'ZCAL_I_MCAL_JHB', ACTVT = '03' );
+}

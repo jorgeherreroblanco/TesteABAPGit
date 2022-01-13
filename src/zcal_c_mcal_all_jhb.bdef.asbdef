@@ -1,0 +1,34 @@
+projection implementation in class zbp_cal_c_mcal_all_jhb unique;
+strict;
+use draft;
+
+define behavior for ZCAL_C_MCAL_ALL_JHB alias HolidayAll
+{
+  use action Activate;
+  use action Discard;
+  use action Edit;
+  use action Prepare;
+  use action Resume;
+
+  use association _Holiday { create ( augment ); with draft; }
+}
+
+define behavior for ZCAL_C_MCAL_JHB alias HolidayRoot
+{
+  use update ( augment );
+  use delete;
+
+  field ( modify ) HolidayDescription;
+
+  use association _HolidayAll { with draft; }
+  use association _HolidayTxt { create; with draft; }
+}
+
+define behavior for ZCAL_C_MCAL_TXT_JHB alias HolidayText
+{
+  use update;
+  use delete;
+
+  use association _HolidayAll { with draft; }
+  use association _Public_Holiday { with draft; }
+}

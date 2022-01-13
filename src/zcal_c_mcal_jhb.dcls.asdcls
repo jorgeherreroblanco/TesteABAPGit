@@ -1,0 +1,10 @@
+@EndUserText.label: 'Access Control for ZCAL_C_MCAL_JHB'
+@MappingRole: true
+define role ZCAL_C_MCAL_JHB {
+  grant
+    select
+      on
+        ZCAL_C_MCAL_JHB
+          where
+            inheriting conditions from entity ZCAL_I_MCAL_JHB;
+}

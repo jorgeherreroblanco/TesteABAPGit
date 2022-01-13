@@ -1,0 +1,65 @@
+managed with additional save implementation in class zbp_cal_i_mcal_all_JHB unique;
+strict;
+with draft;
+
+define behavior for zcal_i_mcal_all_JHB alias HolidayAll
+with unmanaged save
+lock master total etag LastChangedAtMax
+authorization master ( global )
+draft table zcal_x_cal_a_JHB
+{
+  update;
+  draft action Activate;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  association _Holiday { create; with draft; }
+}
+
+define behavior for zcal_i_mcal_JHB alias HolidayRoot
+lock dependent by _HolidayAll
+authorization dependent by _HolidayAll
+persistent table zcal_holiday_JHB
+draft table zcal_d_cal_JHB
+{
+  update;
+  delete;
+  field ( readonly ) HolidayAllID;
+  field ( readonly : update ) Holiday;
+  association _HolidayAll { with draft; }
+  association _HolidayTxt { create; with draft; }
+
+  mapping for ZCAL_HOLIDAY_JHB corresponding
+  {
+    Holiday = holiday_id;
+    HolidayDay = day_of_holiday;
+    HolidayMonth = month_of_holiday;
+  }
+}
+
+define behavior for zcal_i_mcal_txt_JHB alias HolidayText
+lock dependent by _HolidayAll
+authorization dependent by _HolidayAll
+persistent table zcal_holitxt_JHB
+draft table zcal_d_txt_JHB
+
+{
+  update;
+  delete;
+  field ( readonly : update ) Holiday;
+  field ( readonly : update ) Language;
+
+  field ( readonly ) HolidayAllID;
+
+  association _HolidayAll { with draft; }
+  association _Public_Holiday { with draft; }
+
+  mapping for ZCAL_HOLITXT_JHB corresponding
+  {
+    Language = spras;
+    Holiday = holiday_id;
+    HolidayDescription = fcal_description;
+  }
+}
